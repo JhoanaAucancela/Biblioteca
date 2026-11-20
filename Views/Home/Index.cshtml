@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Biblioteca.Models.Prestamo>
+@{
+    ViewData["Title"] = "Inicio";
+    var tarjetas = new[]
+    {
+        new { Nombre = "Autores", Controlador = "Autores", Total = (int)ViewBag.Autores },
+        new { Nombre = "Categorías", Controlador = "Categorias", Total = (int)ViewBag.Categorias },
+        new { Nombre = "Libros", Controlador = "Libros", Total = (int)ViewBag.Libros },
+        new { Nombre = "Socios", Controlador = "Socios", Total = (int)ViewBag.Socios },
+        new { Nombre = "Préstamos", Controlador = "Prestamos", Total = (int)ViewBag.Prestamos }
+    };
+}
+
+<h1 class="mb-4">Sistema de Biblioteca</h1>
+
+<div class="row g-3 mb-4">
+    @foreach (var t in tarjetas)
+    {
+        <div class="col-6 col-md">
+            <a class="card text-decoration-none h-100" asp-controller="@t.Controlador" asp-action="Index">
+                <div class="card-body">
+                    <div class="display-6 fw-bold">@t.Total</div>
+                    <div class="text-muted">@t.Nombre</div>
+                </div>
+            </a>
+        </div>
+    }
+</div>
+
+<h4>Préstamos vigentes</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Libro</th>
+            <th>Autor</th>
+            <th>Socio</th>
+            <th>Fecha de Préstamo</th>
+            <th>Fecha de Devolución</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr><td colspan="5" class="text-center text-muted">No hay préstamos vigentes.</td></tr>
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Libro.Titulo</td>
+                <td>@item.Libro.Autor.NombreCompleto</td>
+                <td>@item.Socio.NombreCompleto</td>
+                <td>@item.Fecha_Prestamo.ToString("dd/MM/yyyy")</td>
+                <td>@item.Fecha_Devolucion.ToString("dd/MM/yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>

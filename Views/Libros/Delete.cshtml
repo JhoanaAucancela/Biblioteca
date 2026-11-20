@@ -1,0 +1,49 @@
+@model Biblioteca.Models.Libro
+
+@{
+    ViewData["Title"] = "Eliminar";
+}
+
+<h1>Eliminar</h1>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+<h3>¿Está seguro de que desea eliminar este registro?</h3>
+<div>
+    <h4>Libro</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Anio_Publicacion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Anio_Publicacion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Autor)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Autor.NombreCompleto)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Categoria)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Categoria.Nombre)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index">Volver a la lista</a>
+    </form>
+</div>
